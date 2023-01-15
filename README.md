@@ -2,7 +2,7 @@
 
 [![CI (build)](https://github.com/tats-u/pwgen/workflows/Build/badge.svg)](https://github.com/tats-u/pwgen/actions/workflows/build.yml)
 
-<https://tats-u.github.io/pwgen/>
+<https://pwgen-tats-u.vercel.app/>
 
 This is a highly-customizable online password generator made with Next.js (& React).
 
