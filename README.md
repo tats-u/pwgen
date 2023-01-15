@@ -22,7 +22,7 @@ You will be able to (can't for now though):
 
 ## Preview
 
-![Preview image](https://user-images.githubusercontent.com/12870451/72742938-0b88ee80-3bee-11ea-8d5c-c39be76c029b.png)
+![Preview image](https://user-images.githubusercontent.com/12870451/212541177-cf407459-a965-46af-a10c-82d09e3c21b9.png)
 
 ## Build Setup
 
