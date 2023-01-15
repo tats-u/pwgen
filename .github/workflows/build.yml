@@ -101,22 +101,24 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
-      - name: Static HTML export with Next.js
-        run: ${{ steps.detect-package-manager.outputs.runner }} next export
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: ./out
-  deploy:
-    runs-on: ubuntu-latest
-    needs:
-      - build
-      - lint
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    if: github.event_name == 'push'
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
+# next-i18n does not support SSG
+  #     - name: Static HTML export with Next.js
+  #       run: ${{ steps.detect-package-manager.outputs.runner }} next export
+  #     - name: Upload artifact
+  #       uses: actions/upload-pages-artifact@v1
+  #       with:
+  #         path: ./out
+# Vercel bot automatically makes builds
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   needs:
+  #     - build
+  #     - lint
+  #   environment:
+  #     name: github-pages
+  #     url: ${{ steps.deployment.outputs.page_url }}
+  #   if: github.event_name == 'push'
+  #   steps:
+  #     - name: Deploy to GitHub Pages
+  #       id: deployment
+  #       uses: actions/deploy-pages@v1
