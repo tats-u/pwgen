@@ -1,0 +1,51 @@
+title: Password Generator
+description: Highly configurable password generator
+settings: Settings
+appearance_ratio: Appearance Ratio
+alphabets: Alphabets
+digits: Digits
+symbols: Symbols
+uppercase: Uppercase Letters
+appearing_char_type: Appearing Character Type
+appearing_symbols: Appearing Symbols
+turn_all_on: Turn All On
+turn_all_off: Turn All Off
+config_from_kb: Configure from Keyboard
+config_from_kb_dialog:
+  symbol: "*Symbol*"
+  toggle_pressed_symbol: Toggle the pressed symbol
+  turn_all_on: Turn all symbols on
+  turn_all_off: Turn all symbols off
+  next_symbol: Select the next symbol
+  previous_symbol: Select the previous symbol
+  toggle_selected_symbol: Toggle the selected symbol
+  close: Close this dialog
+input_symbols_from_kb: Input symbols ONLY to be contained
+input_symbols_from_kb_hint: Duplicated symbols and non-symbol characters will be ignored.
+cancel: Cancel
+misc_settings: Miscellaneous Settings
+pass_len: Password Length
+pass_gen_num: Number of Passwords to Generate
+generate: Generate
+generating: Generating...
+generated_pass: Generated Passwords
+copy: Copy
+copy_done: Done!
+not_yet_generated: Press the above “GENERATE” button and passwords will be listed here.
+language: Language
+languages:
+  en: English
+  ja: Japanese (日本語)
+restriction_consecutive_chars: Restriction of consecutive characters
+restriction_consecutive_chars_policies:
+  allowAll: Allow all characters consecution
+  rejectAll: Reject all characters consecution
+  limitToLessThan3: Allow only 2 consecutive characters
+restriction_alnum: Restriction of alphabets and numbers with similar shapes
+restriction_alnum_policies:
+  allowAll: Allow all
+  base58: Only in Base58
+  base56: Only in Base56
+exclude_chars: "Excludes:\u00A0"
+nothing: (Nothing)
+firefox_change_settings: If your browser is Firefox, please disable the option “≡→General→Browsing→Search for text when you start typing”.

@@ -1,0 +1,51 @@
+title: パスワードジェネレータ
+description: 細かく設定可能なパスワードジェネレータ
+settings: 設定
+appearance_ratio: 出現比
+alphabets: アルファベット
+digits: 数字
+symbols: 記号
+uppercase: 大文字
+appearing_char_type: 出現文字種
+appearing_symbols: 出現記号
+turn_all_on: 全てオン
+turn_all_off: 全てオフ
+config_from_kb: キーボードから設定
+config_from_kb_dialog:
+  symbol: 記号
+  toggle_pressed_symbol: 押した記号のオン・オフ切り替え
+  turn_all_on: 全てオン
+  turn_all_off: 全てオフ
+  next_symbol: 次の記号を選択
+  previous_symbol: 前の記号を選択
+  toggle_selected_symbol: 選択した記号のオン・オフ切り替え
+  close: ダイアログを閉じる
+input_symbols_from_kb: 出現させたい記号だけを入力
+input_symbols_from_kb_hint: 記号の重複や、記号以外の文字は無視されます
+cancel: キャンセル
+misc_settings: その他設定
+pass_len: パスワード長
+pass_gen_num: パスワード生成数
+generate: 生成
+generating: 生成中・・・
+generated_pass: 生成したパスワード
+copy: コピー
+copy_done: 完了！
+not_yet_generated: 上の「生成」ボタンを押すと、生成されたパスワードが表示されます
+language: 言語
+languages:
+  en: 英語 (English)
+  ja: 日本語
+restriction_consecutive_chars: 連続文字の制限
+restriction_consecutive_chars_policies:
+  allowAll: 連続した文字を許可
+  rejectAll: 連続した文字を一律禁止
+  limitToLessThan3: 3連続以上を禁止
+restriction_alnum: 見間違えやすい文字の制限
+restriction_alnum_policies:
+  allowAll: 文字を制限しない
+  base58: Base58規定文字のみ
+  base56: Base56規定文字のみ
+exclude_chars: 除外文字：
+nothing: （なし）
+firefox_change_settings: Firefoxを利用している場合、「≡→設定→ブラウジング→キー入力時に検索を開始する」のオプションを無効にしてください。

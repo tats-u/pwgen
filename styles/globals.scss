@@ -1,0 +1,61 @@
+@use "sass:math";
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  color: #223;
+}
+
+body {
+  $paddingNarrow: 16;
+  $paddingNarrowPx: $paddingNarrow * 1px;
+  $paddingWideRate: 4;
+  $paddingWide: $paddingNarrow * $paddingWideRate;
+  $paddingWidePx: $paddingNarrowPx * $paddingWideRate;
+  $paddingExpandStartWidth: 480;
+  $paddingExpandStartWidthPx: $paddingExpandStartWidth * 1px;
+  $maxWidth: 1024;
+  $maxWidthPx: $maxWidth * 1px;
+  $paddingExpandEndWidth: $maxWidth + $paddingWide * 2;
+  $paddingExpandEndWidthPx: $paddingExpandEndWidth * 1px;
+  padding-left: $paddingNarrowPx;
+  padding-right: $paddingNarrowPx;
+  $mulRatio: math.div(
+    $paddingWide - $paddingNarrow,
+    $paddingExpandEndWidth - $paddingExpandStartWidth
+  );
+  @media (min-width: $paddingExpandStartWidthPx) {
+    $padding: calc(
+      (100% - $paddingExpandStartWidthPx) * $mulRatio + $paddingNarrowPx
+    );
+    padding-left: $padding;
+    padding-right: $padding;
+  }
+  @media (min-width: $paddingExpandEndWidthPx) {
+    $padding: calc(50% - #{math.div($maxWidthPx, 2)});
+    padding-left: $padding;
+    padding-right: $padding;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    color: white;
+    background: #111;
+  }
+}

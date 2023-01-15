@@ -1,0 +1,44 @@
+{
+  // IntelliSense を使用して利用可能な属性を学べます。
+  // 既存の属性の説明をホバーして表示します。
+  // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch App",
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": ["dev"],
+      "sourceMaps": true
+    },
+    {
+      "type": "firefox",
+      "request": "launch",
+      "name": "Open with Firefox",
+      "url": "http://localhost:3000/",
+      "pathMappings": [{ "url": "webpack:///src/", "path": "${webRoot}/" }],
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Open with Chrome",
+      "url": "http://localhost:3000/",
+      "sourceMapPathOverrides": {
+        "webpack:///./src/*": "${webRoot}/*"
+      },
+      "webRoot": "${workspaceFolder}"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Debug with Chrome (App & Browser)",
+      "configurations": ["Launch App", "Open with Chrome"]
+    },
+    {
+      "name": "Debug with Firefox (App & Browser)",
+      "configurations": ["Launch App", "Open with Firefox"]
+    }
+  ]
+}

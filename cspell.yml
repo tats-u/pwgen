@@ -1,0 +1,15 @@
+version: "0.2"
+language: en
+words:
+  - alnum
+  - chakra
+  - csprng
+  - disabledness
+  - enabledness
+  - flickr
+  - ghpages
+  - nocjsp
+  - Nuxt
+  - Parens
+  - peaceiris
+  - pwgen
