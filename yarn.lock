@@ -4255,9 +4255,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pwgen2@workspace:.":
+"pwgen@workspace:.":
   version: 0.0.0-use.local
-  resolution: "pwgen2@workspace:."
+  resolution: "pwgen@workspace:."
   dependencies:
     "@emotion/react": ^11.10.5
     "@emotion/styled": ^11.10.5
