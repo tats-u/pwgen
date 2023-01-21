@@ -57,7 +57,7 @@ import KeyboardIcon from "@mui/icons-material/Keyboard";
 import KeyIcon from "@mui/icons-material/Key";
 import Dialog from "@mui/material/Dialog";
 import { generatedPasswordListAtom } from "./GeneratedPasswordList";
-import { monoFontClass } from "../styles/font.css";
+import { monoFontClass, monoFontFamily } from "../styles/font.css";
 import { usePrefersDarkMode } from "../utils/darkMode";
 
 /** Emoji icons before language names */
@@ -447,16 +447,20 @@ const touchFriendlyChipThemeBase: ThemeOptions = {
   },
 };
 
-const useTouchFriendlyChipTheme = (prefersDarkMode: boolean) =>
+const useTouchFriendlyChipTheme = (
+  prefersDarkMode: boolean,
+  monoFont?: boolean | undefined
+) =>
   useMemo(
     () =>
       createTheme({
+        ...(monoFont ? { typography: { fontFamily: monoFontFamily } } : {}),
         palette: {
           mode: prefersDarkMode ? "dark" : "light",
         },
         ...touchFriendlyChipThemeBase,
       }),
-    [prefersDarkMode]
+    [prefersDarkMode, monoFont]
   );
 
 interface ActivateChipProps {
@@ -468,8 +472,6 @@ interface ActivateChipProps {
   name: string;
   /** `true` if this chip is disabled (should be unavailable) */
   disabled?: boolean | undefined;
-  /** Monospace font is used if `true` */
-  monoFont?: boolean | undefined;
 }
 
 /**
@@ -479,7 +481,6 @@ const ActivateChip: FC<ActivateChipProps> = (props) => {
   return (
     <Chip
       label={props.name}
-      className={props.monoFont ? monoFontClass : undefined}
       color={props.activated ? "primary" : "default"}
       disabled={props.disabled}
       onClick={props.onClick}
@@ -501,7 +502,6 @@ const SymbolActivateChip: FC<SymbolActivateChipProps> = (props) => {
       onClick={useCallback(() => {
         setActivated(!activated);
       }, [activated, setActivated])}
-      monoFont
     />
   );
 };
@@ -516,7 +516,10 @@ interface SymbolActivateChipListProps {
  */
 const SymbolActivateChipList: FC<SymbolActivateChipListProps> = (props) => {
   const prefersDarkMode = usePrefersDarkMode();
-  const touchFriendlyChipTheme = useTouchFriendlyChipTheme(prefersDarkMode);
+  const touchFriendlyChipTheme = useTouchFriendlyChipTheme(
+    prefersDarkMode,
+    true
+  );
 
   return (
     <div className={flexChipContainerClass}>
