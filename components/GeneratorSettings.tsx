@@ -57,8 +57,9 @@ import KeyboardIcon from "@mui/icons-material/Keyboard";
 import KeyIcon from "@mui/icons-material/Key";
 import Dialog from "@mui/material/Dialog";
 import { generatedPasswordListAtom } from "./GeneratedPasswordList";
-import { monoFontClass, monoFontFamily } from "../styles/font.css";
+import { monoFontClass } from "../styles/font.css";
 import { usePrefersDarkMode } from "../utils/darkMode";
+import { monoFontFamily, touchMediaQuery } from "../styles/styleBase";
 
 /** Emoji icons before language names */
 const languageIcons = {
@@ -429,7 +430,7 @@ const touchFriendlyChipThemeBase: ThemeOptions = {
       styleOverrides: {
         // base * 1.25
         root: {
-          "@media not (pointer: fine)": {
+          [touchMediaQuery]: {
             height: "40px",
             // height / 2
             borderRadius: "20px",
@@ -437,7 +438,7 @@ const touchFriendlyChipThemeBase: ThemeOptions = {
         },
         label: {
           // base * 1.3--1.4 (1.25x look too narrow)
-          "@media not (pointer: fine)": {
+          [touchMediaQuery]: {
             paddingRight: "16px",
             paddingLeft: "16px",
           },
