@@ -34,7 +34,7 @@ import {
   useState,
 } from "react";
 import {
-  characterRatioControllerContainerClass,
+  sliderAndInputControllerContainerClass,
   characterTypeContainerClass,
   characterTypeLabelClass,
   flexChipContainerClass,
@@ -198,7 +198,7 @@ const SliderTextFieldPair: FC<SliderTextFieldPairProps> = (props) => {
   );
 
   return (
-    <div className={characterRatioControllerContainerClass}>
+    <div className={sliderAndInputControllerContainerClass}>
       <Slider
         max={value > props.max ? value : props.max}
         min={props.min ?? 0}

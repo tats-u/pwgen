@@ -21,7 +21,7 @@ import {
 } from "react";
 import { monoFontClass } from "../styles/font.css";
 import classNames from "classnames";
-import { allowOverWrapClass } from "../styles/generatedPasswordList.css";
+import { allowInterWordWrapClass } from "../styles/generatedPasswordList.css";
 
 /**
  * Jotai atom for global state of generated password list
@@ -103,7 +103,7 @@ const PasswordRow: FC<PasswordRowProps> = ({ password, cancelRef }) => {
       }
     >
       <ListItemText>
-        <code className={classNames([monoFontClass, allowOverWrapClass])}>
+        <code className={classNames([monoFontClass, allowInterWordWrapClass])}>
           {password}
         </code>
       </ListItemText>

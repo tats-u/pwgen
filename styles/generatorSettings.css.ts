@@ -1,31 +1,40 @@
-import { fontSize } from "@mui/system";
 import { globalStyle, style } from "@vanilla-extract/css";
 import { monoFontClass } from "./font.css";
 
+/**
+ * Media query targeting at dark theme environment (w/o `@media`)
+ */
 const darkQuery = "(prefers-color-scheme: dark)";
 
-export const frequencyContainerClass = style({
-  width: "100%",
-  display: "block",
-});
-
+/**
+ * Container that includes label, slider, and input for character type frequency
+ */
 export const characterTypeContainerClass = style({
   width: "100%",
   display: "block",
 });
 
+/**
+ * Container that includes label, slider, and input for character type frequency
+ */
 export const characterTypeLabelClass = style({
   width: "100%",
   display: "block",
 });
 
-export const characterRatioControllerContainerClass = style({
+/**
+ * Container that includes slider and input
+ */
+export const sliderAndInputControllerContainerClass = style({
   width: "100%",
   display: "grid",
   gridTemplate: "auto / 1fr 3em",
   columnGap: "30px",
 });
 
+/**
+ * Container class that includes lines symbol toggle chips and them up
+ */
 export const flexChipContainerClass = style({
   display: "flex",
   gap: "6px",
@@ -37,6 +46,9 @@ export const flexChipContainerClass = style({
   },
 });
 
+/**
+ * Key top outer container
+ */
 export const keyTopWrapperClass = style({
   display: "inline-table",
   border: "1px solid #999",
@@ -53,6 +65,9 @@ export const keyTopWrapperClass = style({
   },
 });
 
+/**
+ * Key top inner container
+ */
 export const keyTopClass = style([
   monoFontClass,
   {
@@ -65,6 +80,9 @@ export const keyTopClass = style([
   },
 ]);
 
+/**
+ * Description list (`<dl>`) whose `<dt>` and `<dd>` are not separated into 2 lines
+ */
 export const oneLineDescriptionListClass = style({
   display: "grid",
   gridTemplate: "auto / auto 1fr",

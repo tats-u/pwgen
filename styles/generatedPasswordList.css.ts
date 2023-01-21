@@ -1,5 +1,8 @@
 import { style } from "@vanilla-extract/css";
 
-export const allowOverWrapClass = style({
+/**
+ * Line break should be allowed anywhere in passwords
+ */
+export const allowInterWordWrapClass = style({
   overflowWrap: "anywhere",
 });
