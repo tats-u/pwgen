@@ -49,3 +49,5 @@ restriction_alnum_policies:
 exclude_chars: "Excludes:\u00A0"
 nothing: (Nothing)
 firefox_change_settings: If your browser is Firefox, please disable the option “≡→General→Browsing→Search for text when you start typing”.
+share_on_twitter: Share on Twitter
+github_repo: View source on GitHub

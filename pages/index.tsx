@@ -11,6 +11,7 @@ import { createTheme } from "@mui/material";
 import { useMemo } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import { usePrefersDarkMode } from "../utils/darkMode";
+import { AdvertisementFab } from "../components/Advertisement";
 
 export default function Home() {
   const prefersDarkMode = usePrefersDarkMode();
@@ -43,6 +44,7 @@ export default function Home() {
             <GeneratedPasswordList />
           </Stack>
         </main>
+        <AdvertisementFab />
       </div>
     </ThemeProvider>
   );
