@@ -1,5 +1,6 @@
 import { globalStyle, style } from "@vanilla-extract/css";
 import { monoFontClass } from "./font.css";
+import { touchMediaQueryWithoutMedia } from "./styleBase";
 
 /**
  * Media query targeting at dark theme environment (w/o `@media`)
@@ -40,7 +41,7 @@ export const flexChipContainerClass = style({
   gap: "6px",
   flexWrap: "wrap",
   "@media": {
-    "not (pointer: fine)": {
+    [touchMediaQueryWithoutMedia]: {
       gap: "12px",
     },
   },

@@ -59,7 +59,7 @@ import Dialog from "@mui/material/Dialog";
 import { generatedPasswordListAtom } from "./GeneratedPasswordList";
 import { monoFontClass } from "../styles/font.css";
 import { usePrefersDarkMode } from "../utils/darkMode";
-import { monoFontFamily, touchMediaQuery } from "../styles/styleBase";
+import { monoFontFamily, touchMediaQueryWithMedia } from "../styles/styleBase";
 
 /** Emoji icons before language names */
 const languageIcons = {
@@ -430,7 +430,7 @@ const touchFriendlyChipThemeBase: ThemeOptions = {
       styleOverrides: {
         // base * 1.25
         root: {
-          [touchMediaQuery]: {
+          [touchMediaQueryWithMedia]: {
             height: "40px",
             // height / 2
             borderRadius: "20px",
@@ -438,7 +438,7 @@ const touchFriendlyChipThemeBase: ThemeOptions = {
         },
         label: {
           // base * 1.3--1.4 (1.25x look too narrow)
-          [touchMediaQuery]: {
+          [touchMediaQueryWithMedia]: {
             paddingRight: "16px",
             paddingLeft: "16px",
           },
