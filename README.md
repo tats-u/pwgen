@@ -38,7 +38,8 @@ $ yarn build
 $ yarn start
 
 # generate static project
-$ yarn generate
+# Note: unavailable because next-i18next doesn't support SSG
+# $ yarn generate
 ```
 
 ## Privacy Policy
