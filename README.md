@@ -43,6 +43,5 @@ $ yarn generate
 
 ## Privacy Policy
 
-This generator _WILL NEVER_ generate passwords in remote servers or submit generated ones to anywhere. The page just provides an way to generate ones _JUST IN_ your browser.
-
-In the future, this generator may save settings for password generation in your browser to save time to reproduce the same settings next time.
+1. This generator _WILL NEVER_ generate passwords in remote servers or send generated passwords anywhere. The site only provides a way to generate them _JUST IN_ your browser.
+2. This generator saves password generation settings in your browser to save you the time of reproducing the same settings next time. Saved settings are also never sent anywhere. This feature is implemented using the [Web Storage API (`localStorage`)](https://developer.mozilla.org/docs/Web/API/Web_Storage_API).
