@@ -1000,11 +1000,85 @@ export const GenerateButton: FC = () => {
   );
 };
 
+interface StoredConfig {
+  length: number;
+  frequency: typeof initFrequency;
+  charTypeEnabledness: typeof initCharacterTypeEnabled;
+  usableSymbols: Record<string, boolean>;
+  passwordCount: number;
+  maxConsecutiveCharsCountTag: passwordCharsConsecutionPoliciesType;
+  alNumTableKey: AlNumTableFactoryType;
+}
+
+/**
+ * Custom hook to save or load the global settings to/from `localStorage`
+ */
+const useLoadSaveLocalStorage = () => {
+  const [passwordLength, setPasswordLength] = useAtom(passwordLengthAtom);
+  const [frequency, setFrequency] = useAtom(frequencyAtom);
+  const [isTypeEnabled, setIsTypeEnabled] = useAtom(characterTypeEnabledAtom);
+  const [usableSymbols, setUsableSymbols] = useAtom(enabledSymbolsAtom);
+  const [passwordCount, setPasswordCount] = useAtom(passwordCountAtom);
+  const [maxConsecutiveCharsCountTag, setMaxConsecutiveCharsCountTag] = useAtom(
+    allowedMaxConsecutiveCharsCountAtom
+  );
+  const [alNumTableKey, setAlNumTableKey] = useAtom(alNumTableKeyAtom);
+  const saveConfig = useCallback(() => {
+    localStorage.setItem(
+      "pwgen_conf",
+      JSON.stringify({
+        length: passwordLength,
+        frequency,
+        charTypeEnabledness: isTypeEnabled,
+        usableSymbols,
+        passwordCount,
+        maxConsecutiveCharsCountTag,
+        alNumTableKey,
+      } as StoredConfig)
+    );
+  }, [
+    alNumTableKey,
+    frequency,
+    isTypeEnabled,
+    maxConsecutiveCharsCountTag,
+    passwordCount,
+    passwordLength,
+    usableSymbols,
+  ]);
+  useEffect(() => {
+    const rawConf = localStorage.getItem("pwgen_conf");
+    if (!rawConf) return;
+    const conf = JSON.parse(rawConf) as StoredConfig;
+    setPasswordLength(conf.length);
+    setFrequency(conf.frequency);
+    setIsTypeEnabled(conf.charTypeEnabledness);
+    setUsableSymbols(conf.usableSymbols);
+    setPasswordCount(conf.passwordCount);
+    setMaxConsecutiveCharsCountTag(conf.maxConsecutiveCharsCountTag);
+    setAlNumTableKey(conf.alNumTableKey);
+  }, [
+    setAlNumTableKey,
+    setFrequency,
+    setIsTypeEnabled,
+    setMaxConsecutiveCharsCountTag,
+    setPasswordCount,
+    setPasswordLength,
+    setUsableSymbols,
+  ]);
+  useEffect(() => {
+    const handle = () => saveConfig();
+    window.addEventListener("unload", handle);
+    return () => window.removeEventListener("unload", handle);
+  }, [saveConfig]);
+};
+
 /**
  * Component group of overall password generation (generator) settings
  */
 export const GeneratorSettings: FC = () => {
   const { t } = useTranslation();
+  useLoadSaveLocalStorage();
+
   return (
     <Card component="section">
       <CardContent>
