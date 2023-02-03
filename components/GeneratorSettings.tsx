@@ -10,6 +10,7 @@ import {
   FormControl,
   FormControlLabel,
   Grid,
+  IconButton,
   Input,
   InputLabel,
   MenuItem,
@@ -21,6 +22,7 @@ import {
 } from "@mui/material";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import CardContent from "@mui/material/CardContent";
+import CloseIcon from "@mui/icons-material/Close";
 import type { ThemeOptions } from "@mui/material/styles";
 import { atom, useAtom, useAtomValue, useSetAtom, WritableAtom } from "jotai";
 import { focusAtom } from "jotai-optics";
@@ -613,7 +615,20 @@ const SymbolFromKeyboardDialog: FC<SymbolFromKeyboardDialogProps> = (props) => {
   );
   return (
     <Dialog open={props.open} onClose={props.onClose} onKeyDown={handleKeyDown}>
-      <DialogTitle>{t("config_from_kb")}</DialogTitle>
+      <DialogTitle>
+        {t("config_from_kb")}
+        <IconButton
+          aria-label="close"
+          onClick={props.onClose}
+          sx={{
+            position: "absolute",
+            right: 8,
+            top: 8,
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
       <DialogContent>
         <Stack spacing={1}>
           <SymbolActivateChipList />
