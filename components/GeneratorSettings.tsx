@@ -19,6 +19,7 @@ import {
   Stack,
   Switch,
   ThemeProvider,
+  Tooltip,
 } from "@mui/material";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import CardContent from "@mui/material/CardContent";
@@ -682,17 +683,19 @@ const SymbolFromKeyboardDialog: FC<SymbolFromKeyboardDialogProps> = (props) => {
     <Dialog open={props.open} onClose={props.onClose} onKeyDown={handleKeyDown}>
       <DialogTitle>
         {t("config_from_kb")}
-        <IconButton
-          aria-label="close"
-          onClick={props.onClose}
-          sx={{
-            position: "absolute",
-            right: 8,
-            top: 8,
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
+        <Tooltip title={t("config_from_kb_dialog.close")} placement="bottom-start">
+          <IconButton
+            aria-label="close"
+            onClick={props.onClose}
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: 8,
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </Tooltip>
       </DialogTitle>
       <DialogContent>
         <Stack spacing={1}>
