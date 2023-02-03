@@ -13,13 +13,22 @@ turn_all_off: 全てオフ
 config_from_kb: キーボードから設定
 config_from_kb_dialog:
   symbol: 記号
+  character: 文字
   toggle_pressed_symbol: 押した記号のオン・オフ切り替え
   turn_all_on: 全てオン
   turn_all_off: 全てオフ
+  focus_on_below_input: 下の入力欄にフォーカス
+  cancel_remove_focus: 記号入力キャンセル（フォーカス解除）
+  activate_input_symbols: 入力した記号のみ有効化
+  input_symbol_list_by_hand: 記号リストを手入力
+  paste: 記号リスト・表を貼り付け
   next_symbol: 次の記号を選択
   previous_symbol: 前の記号を選択
   toggle_selected_symbol: 選択した記号のオン・オフ切り替え
+  input_or_paste_enter: 記号リストを入力/貼り付け→Enter
+  other_than_symbols_ignored: 記号以外の文字は無視されます（除去不要）
   close: ダイアログを閉じる
+  ditto: 同上
 input_symbols_from_kb: 出現させたい記号だけを入力
 input_symbols_from_kb_hint: 記号の重複や、記号以外の文字は無視されます
 cancel: キャンセル

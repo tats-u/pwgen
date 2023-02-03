@@ -28,11 +28,13 @@ import { atom, useAtom, useAtomValue, useSetAtom, WritableAtom } from "jotai";
 import { focusAtom } from "jotai-optics";
 import { useTranslation } from "next-i18next";
 import {
+  ChangeEventHandler,
   FC,
   KeyboardEventHandler,
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import {
@@ -62,6 +64,7 @@ import { generatedPasswordListAtom } from "./GeneratedPasswordList";
 import { monoFontClass } from "../styles/font.css";
 import { usePrefersDarkMode } from "../utils/darkMode";
 import { monoFontFamily, touchMediaQueryWithMedia } from "../styles/styleBase";
+import TextField from "@mui/material/TextField";
 
 /** Emoji icons before language names */
 const languageIcons = {
@@ -564,11 +567,19 @@ interface SymbolFromKeyboardDialogProps {
 }
 
 /**
+ * Some symbols may be presented as different non-ASCII characters in lists or tables.
+ */
+const symbolReplaceMap = new Map([["\u02DC", "~"]]);
+
+/**
  * Dialog that toggles symbols' enabledness from keyboard
  */
 const SymbolFromKeyboardDialog: FC<SymbolFromKeyboardDialogProps> = (props) => {
   const [usableSymbols, setUsableSymbols] = useAtom(enabledSymbolsAtom);
   const [isFirefox, setIsFirefox] = useState(false);
+  const [isInputFocused, setIsInputFocused] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  const [isMacOs, setMacOs] = useState(false);
 
   useEffect(() => {
     if (
@@ -579,15 +590,43 @@ const SymbolFromKeyboardDialog: FC<SymbolFromKeyboardDialogProps> = (props) => {
       setIsFirefox(true);
     }
   }, []);
+  useEffect(() => {
+    if (navigator.userAgent.includes("Mac OS")) setMacOs(true);
+  }, []);
   const { t } = useTranslation();
+  const inputRef = useRef<HTMLInputElement | undefined>(undefined);
 
   /**
    * Handles keyboard shortcuts
    */
   const handleKeyDown = useCallback<KeyboardEventHandler<HTMLDivElement>>(
     (e) => {
+      if (e.nativeEvent.isComposing) return;
+      if (isInputFocused) {
+        // Cancel
+        if (e.key.toLowerCase() === "c") {
+          inputRef.current?.blur();
+          e.preventDefault();
+          return;
+        }
+        if (e.key === "Enter") {
+          inputRef.current?.blur();
+          const containedSymbols = new Set(
+            [...inputValue].map((c) => symbolReplaceMap.get(c) ?? c)
+          );
+          setUsableSymbols(
+            Object.fromEntries(
+              Object.keys(usableSymbols).map((symbol) => [
+                symbol,
+                containedSymbols.has(symbol),
+              ])
+            )
+          );
+        }
+        return;
+      }
       // Non-letter keys
-      if (e.key.length !== 1 || e.nativeEvent.isComposing) return;
+      if (e.key.length !== 1) return;
       // All
       if (e.key.toLowerCase() === "a") {
         setUsableSymbols(
@@ -606,13 +645,34 @@ const SymbolFromKeyboardDialog: FC<SymbolFromKeyboardDialogProps> = (props) => {
         );
         return;
       }
+      // Focus / Following
+      if (e.key.toLowerCase() === "f") {
+        inputRef.current?.focus();
+        e.preventDefault();
+        return;
+      }
       if (usableSymbols[e.key] === undefined) return;
       const newList = { ...usableSymbols };
       newList[e.key] = !newList[e.key];
       setUsableSymbols(newList);
     },
-    [setUsableSymbols, usableSymbols]
+    [isInputFocused, usableSymbols, setUsableSymbols, inputValue]
   );
+  const handleFocus = useCallback(
+    () => setIsInputFocused(true),
+    [setIsInputFocused]
+  );
+  const handleBlur = useCallback(() => {
+    setIsInputFocused(false);
+    setInputValue("");
+  }, [setIsInputFocused, setInputValue]);
+  const handleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
+    (e) => {
+      setInputValue(e.target.value);
+    },
+    [setInputValue]
+  );
+
   return (
     <Dialog open={props.open} onClose={props.onClose} onKeyDown={handleKeyDown}>
       <DialogTitle>
@@ -634,36 +694,79 @@ const SymbolFromKeyboardDialog: FC<SymbolFromKeyboardDialogProps> = (props) => {
           <SymbolActivateChipList />
           <p>
             <dl className={oneLineDescriptionListClass}>
-              <dt>
-                <KeyTop name={t("config_from_kb_dialog.symbol")} />
-              </dt>
-              <dd>{t("config_from_kb_dialog.toggle_pressed_symbol")}</dd>
-              <dt>
-                <KeyTop name="A" /> / <KeyTop name="a" />
-              </dt>
-              <dd>{t("config_from_kb_dialog.turn_all_on")}</dd>
-              <dt>
-                <KeyTop name="E" /> / <KeyTop name="e" />
-              </dt>
-              <dd>{t("config_from_kb_dialog.turn_all_off")}</dd>
-              <dt>
-                <KeyTop name="Tab" />
-              </dt>
-              <dd>{t("config_from_kb_dialog.next_symbol")}</dd>
-              <dt>
-                <KeyTop name="Shift" /> + <KeyTop name="Tab" />
-              </dt>
-              <dd>{t("config_from_kb_dialog.previous_symbol")}</dd>
-              <dt>
-                <KeyTop name="Enter" /> / <KeyTop name="Space" />
-              </dt>
-              <dd>{t("config_from_kb_dialog.toggle_selected_symbol")}</dd>
+              {isInputFocused ? (
+                <>
+                  <dt>
+                    <KeyTop name={isMacOs ? "Command" : "Ctrl"} /> +{" "}
+                    <KeyTop name="V" />
+                  </dt>
+                  <dd>{t("config_from_kb_dialog.paste")}</dd>
+                  <dt>
+                    <KeyTop name={t("config_from_kb_dialog.character")} />
+                  </dt>
+                  <dd>
+                    {t("config_from_kb_dialog.input_symbol_list_by_hand")}
+                  </dd>
+                  <dt>
+                    <KeyTop name="Enter" />
+                  </dt>
+                  <dd>{t("config_from_kb_dialog.activate_input_symbols")}</dd>
+                  <dt>
+                    <KeyTop name="C" /> / <KeyTop name="c" />
+                  </dt>
+                  <dd>{t("config_from_kb_dialog.cancel_remove_focus")}</dd>
+                  <dt>
+                    ( <KeyTop name="Shift" /> +) <KeyTop name="Tab" />
+                  </dt>
+                  <dd>{t("config_from_kb_dialog.ditto")}</dd>
+                </>
+              ) : (
+                <>
+                  <dt>
+                    <KeyTop name={t("config_from_kb_dialog.symbol")} />
+                  </dt>
+                  <dd>{t("config_from_kb_dialog.toggle_pressed_symbol")}</dd>
+                  <dt>
+                    <KeyTop name="A" /> / <KeyTop name="a" />
+                  </dt>
+                  <dd>{t("config_from_kb_dialog.turn_all_on")}</dd>
+                  <dt>
+                    <KeyTop name="E" /> / <KeyTop name="e" />
+                  </dt>
+                  <dd>{t("config_from_kb_dialog.turn_all_off")}</dd>
+                  <dt>
+                    <KeyTop name="F" /> / <KeyTop name="f" />
+                  </dt>
+                  <dd>{t("config_from_kb_dialog.focus_on_below_input")}</dd>
+                  <dt>
+                    <KeyTop name="Tab" />
+                  </dt>
+                  <dd>{t("config_from_kb_dialog.next_symbol")}</dd>
+                  <dt>
+                    <KeyTop name="Shift" /> + <KeyTop name="Tab" />
+                  </dt>
+                  <dd>{t("config_from_kb_dialog.previous_symbol")}</dd>
+                  <dt>
+                    <KeyTop name="Enter" /> / <KeyTop name="Space" />
+                  </dt>
+                  <dd>{t("config_from_kb_dialog.toggle_selected_symbol")}</dd>
+                </>
+              )}
               <dt>
                 <KeyTop name="Esc" />
               </dt>
               <dd>{t("config_from_kb_dialog.close")}</dd>
             </dl>
           </p>
+          <TextField
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            inputRef={inputRef}
+            value={inputValue}
+            onChange={handleChange}
+            label={t("config_from_kb_dialog.input_or_paste_enter")}
+          />
+          <p>💡{t("config_from_kb_dialog.other_than_symbols_ignored")}</p>
           {isFirefox && <p>⚠️{t("firefox_change_settings")}</p>}
         </Stack>
       </DialogContent>
