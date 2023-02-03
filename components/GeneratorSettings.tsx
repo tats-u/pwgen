@@ -683,7 +683,10 @@ const SymbolFromKeyboardDialog: FC<SymbolFromKeyboardDialogProps> = (props) => {
     <Dialog open={props.open} onClose={props.onClose} onKeyDown={handleKeyDown}>
       <DialogTitle>
         {t("config_from_kb")}
-        <Tooltip title={t("config_from_kb_dialog.close")} placement="bottom-start">
+        <Tooltip
+          title={t("config_from_kb_dialog.close")}
+          placement="bottom-start"
+        >
           <IconButton
             aria-label="close"
             onClick={props.onClose}
