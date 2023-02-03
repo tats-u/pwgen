@@ -611,6 +611,7 @@ const SymbolFromKeyboardDialog: FC<SymbolFromKeyboardDialogProps> = (props) => {
         ) {
           inputRef.current?.blur();
           e.preventDefault();
+          setInputValue("");
           return;
         }
         if (e.key === "Enter") {
@@ -626,6 +627,7 @@ const SymbolFromKeyboardDialog: FC<SymbolFromKeyboardDialogProps> = (props) => {
               ])
             )
           );
+          setInputValue("");
         }
         return;
       }
@@ -660,7 +662,7 @@ const SymbolFromKeyboardDialog: FC<SymbolFromKeyboardDialogProps> = (props) => {
       newList[e.key] = !newList[e.key];
       setUsableSymbols(newList);
     },
-    [isInputFocused, usableSymbols, setUsableSymbols, inputValue]
+    [isInputFocused, usableSymbols, setUsableSymbols, isMacOs, inputValue]
   );
   const handleFocus = useCallback(
     () => setIsInputFocused(true),
@@ -668,8 +670,7 @@ const SymbolFromKeyboardDialog: FC<SymbolFromKeyboardDialogProps> = (props) => {
   );
   const handleBlur = useCallback(() => {
     setIsInputFocused(false);
-    setInputValue("");
-  }, [setIsInputFocused, setInputValue]);
+  }, [setIsInputFocused]);
   const handleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
     (e) => {
       setInputValue(e.target.value);
@@ -722,7 +723,7 @@ const SymbolFromKeyboardDialog: FC<SymbolFromKeyboardDialogProps> = (props) => {
                   <dt>
                     ( <KeyTop name="Shift" /> +) <KeyTop name="Tab" />
                   </dt>
-                  <dd>{t("config_from_kb_dialog.ditto")}</dd>
+                  <dd>{t("config_from_kb_dialog.pause")}</dd>
                 </>
               ) : (
                 <>

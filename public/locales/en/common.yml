@@ -17,7 +17,7 @@ config_from_kb_dialog:
   toggle_pressed_symbol: Toggle the pressed symbol
   turn_all_on: Turn all symbols on
   turn_all_off: Turn all symbols off
-  focus_on_below_input: Focus on the below input field
+  focus_on_below_input: Remove focus and pause entry
   cancel_remove_focus: Cancel entry of symbols (focus removed)
   activate_input_symbols: Activate only entered symbols
   input_symbol_list_by_hand: Input list of symbols manually
@@ -28,7 +28,7 @@ config_from_kb_dialog:
   input_or_paste_enter: Input or Paste List of Symbols→Enter
   other_than_symbols_ignored: All characters other than symbols will be ignored (No need to remove them)
   close: Close this dialog
-  ditto: Ditto
+  pause: Ditto
 input_symbols_from_kb: Input symbols ONLY to be contained
 input_symbols_from_kb_hint: Duplicated symbols and non-symbol characters will be ignored.
 cancel: Cancel

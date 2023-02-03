@@ -28,7 +28,7 @@ config_from_kb_dialog:
   input_or_paste_enter: 記号リストを入力/貼り付け→Enter
   other_than_symbols_ignored: 記号以外の文字は無視されます（除去不要）
   close: ダイアログを閉じる
-  ditto: 同上
+  pause: フォーカスを外して一時中断
 input_symbols_from_kb: 出現させたい記号だけを入力
 input_symbols_from_kb_hint: 記号の重複や、記号以外の文字は無視されます
 cancel: キャンセル
