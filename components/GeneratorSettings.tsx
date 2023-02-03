@@ -771,8 +771,12 @@ const SymbolFromKeyboardDialog: FC<SymbolFromKeyboardDialogProps> = (props) => {
             onChange={handleChange}
             label={t("config_from_kb_dialog.input_or_paste_enter")}
           />
-          <p>💡{t("config_from_kb_dialog.other_than_symbols_ignored")}</p>
-          {isFirefox && <p>⚠️{t("firefox_change_settings")}</p>}
+          {isInputFocused && (
+            <p>💡{t("config_from_kb_dialog.other_than_symbols_ignored")}</p>
+          )}
+          {!isInputFocused && isFirefox && (
+            <p>⚠️{t("firefox_change_settings")}</p>
+          )}
         </Stack>
       </DialogContent>
     </Dialog>
