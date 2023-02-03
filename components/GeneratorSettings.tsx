@@ -604,7 +604,11 @@ const SymbolFromKeyboardDialog: FC<SymbolFromKeyboardDialogProps> = (props) => {
       if (e.nativeEvent.isComposing) return;
       if (isInputFocused) {
         // Cancel
-        if (e.key.toLowerCase() === "c") {
+        if (
+          e.key.toLowerCase() === "c" &&
+          // Skips if copy command
+          ((!isMacOs && !e.ctrlKey) || (isMacOs && !e.metaKey))
+        ) {
           inputRef.current?.blur();
           e.preventDefault();
           return;
