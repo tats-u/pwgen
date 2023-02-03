@@ -678,9 +678,13 @@ const SymbolFromKeyboardDialog: FC<SymbolFromKeyboardDialogProps> = (props) => {
     },
     [setInputValue]
   );
+  const handleClose = useCallback(() => {
+    setInputValue("");
+    props.onClose();
+  }, [props]);
 
   return (
-    <Dialog open={props.open} onClose={props.onClose} onKeyDown={handleKeyDown}>
+    <Dialog open={props.open} onClose={handleClose} onKeyDown={handleKeyDown}>
       <DialogTitle>
         {t("config_from_kb")}
         <Tooltip
@@ -689,7 +693,7 @@ const SymbolFromKeyboardDialog: FC<SymbolFromKeyboardDialogProps> = (props) => {
         >
           <IconButton
             aria-label="close"
-            onClick={props.onClose}
+            onClick={handleClose}
             sx={{
               position: "absolute",
               right: 8,
